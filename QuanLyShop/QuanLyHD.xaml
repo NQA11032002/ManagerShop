@@ -1,0 +1,290 @@
+﻿<Window x:Class="QuanLyShop.QuanLyHD"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyShop"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        mc:Ignorable="d"
+        Title="QuanLyHD" Height="730" Width="920"
+        TextElement.Foreground="Black"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        
+        FontWeight="ExtraBlack"
+        x:Name="qlHoaDon"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource hdVM}"
+        Foreground="Black"
+        FontFamily="Myriad Pro Light">
+    <materialDesign:Card UniformCornerRadius="15" Margin="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="290"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+
+                <materialDesign:PackIcon    
+                                VerticalAlignment="Center"
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                Kind="SubdirectoryArrowRight" />
+                <Button             
+                 Cursor="Hand"
+                 Command="{Binding closeWindow}"
+                 CommandParameter="{Binding ElementName=qlHoaDon}"
+                 HorizontalAlignment="Right"
+                 Width="30"
+                 Height="30"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Style="{StaticResource MaterialDesignRaisedAccentButton}"></Button>
+            </Grid>
+
+            <TextBlock Grid.Row="1" VerticalAlignment="Center" Text="HÓA ĐƠN"  FontSize="35" HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="{x:Null}"></TextBlock>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:Card UniformCornerRadius="15" Margin="5">
+                    <StackPanel>
+
+                        <TextBlock Text="THÔNG TIN HÓA ĐƠN" FontSize="20" HorizontalAlignment="Center"></TextBlock>
+
+                        <StackPanel Margin="5">
+
+                            <TextBlock Text="MÃ HÓA ĐƠN"></TextBlock>
+
+                            <Border Height="25" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+                                <TextBox IsEnabled="False" VerticalAlignment="Center" Text="{Binding IDHDThem,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBox>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="MÃ NHÂN VIÊN | HỌ TÊN"></TextBlock>
+                            <Border Height="25" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+                                <WrapPanel>
+                                    <TextBox IsEnabled="False" Text="{Binding IDNV, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBox>
+                                    <TextBox IsEnabled="False" Text="|"></TextBox>
+                                    <TextBox IsEnabled="False" Text="{Binding tenNV, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBox>
+                                </WrapPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="MÃ KHÁCH HÀNG | HỌ TÊN"></TextBlock>
+                            <Border Height="25" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+                                <ComboBox VerticalAlignment="Center"  SelectedValuePath="ID" SelectedItem="{Binding SelectedItemKH}" ItemsSource="{Binding ListKH}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel>
+                                                <TextBlock Text="{Binding ID, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBlock>
+                                                <TextBlock Text=" | "></TextBlock>
+                                                <TextBlock Text="{Binding hoTen}"></TextBlock>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="NGÀY HÓA ĐƠN"></TextBlock>
+                            <Border Height="25" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+                                <TextBlock VerticalAlignment="Center" Text="{Binding NgayDat, StringFormat=dd/MM/yyyy}"></TextBlock>
+                            </Border>
+                        </StackPanel>
+
+                        <WrapPanel HorizontalAlignment="Center">
+                            <materialDesign:Card Margin="10" Width="180"  Background="#000" UniformCornerRadius="15">
+                                <Button       
+                                   Foreground="White"
+                                   Cursor="Hand"
+                                   FontSize="17"
+                                   Width="180"
+                                   Command="{Binding themHD}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="THÊM HÓA ĐƠN"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                                </Button>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card  Margin="10" Width="180"  Background="#000" UniformCornerRadius="15">
+                                <Button  
+                                   Foreground="White"
+                                   Cursor="Hand"
+                                   FontSize="17"
+                                   Width="180"
+                                   Command="{Binding thanhToanHD}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="THANH TOÁN"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                                </Button>
+                            </materialDesign:Card>
+                        </WrapPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card Grid.Column="1" UniformCornerRadius="15" Margin="5">
+                    <StackPanel>
+                        <TextBlock Text="CHI TIẾT HÓA ĐƠN" FontSize="20" HorizontalAlignment="Center"></TextBlock>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="MÃ SẢN PHẨM | TÊN SẢN PHẨM | SIZE"></TextBlock>
+                            <Border Height="25" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+                                <ComboBox VerticalAlignment="Center"  
+                                          SelectedValuePath="ID" 
+                                          SelectedItem="{Binding SelectedItemSP}" 
+                                          ItemsSource="{Binding ListSP}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel>
+                                                <TextBlock Text="{Binding ID, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBlock>
+                                                <TextBlock Text=" | "></TextBlock>
+                                                <TextBlock Text="{Binding tenSP}"></TextBlock>
+                                                <TextBlock Text=" | "></TextBlock>
+                                                <TextBlock Text="{Binding kichCo}"></TextBlock>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="ĐƠN GIÁ"></TextBlock>
+                            <Border Height="25" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+                                <TextBlock VerticalAlignment="Center"  Text="{Binding DonGia}"></TextBlock>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="SỐ LƯỢNG"></TextBlock>
+                            <Border Height="25" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+                                <TextBox VerticalAlignment="Center" Text="{Binding SoLuong,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding textChangedSoLuong}"></i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Text="THÀNH TIỀN"></TextBlock>
+                            <Border Height="25" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+                                <TextBlock VerticalAlignment="Center"  Text="{Binding ThanhTien, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBlock>
+                            </Border>
+                        </StackPanel>
+
+                        <WrapPanel HorizontalAlignment="Center" Grid.Row="5">
+                            <materialDesign:Card VerticalAlignment="Center" Width="180" Margin="10" Background="#000" UniformCornerRadius="15">
+                                <Button  
+                                   Foreground="White"
+                                   Cursor="Hand"
+                                   FontSize="17"
+                                   Width="180"
+                                   Command="{Binding themCTSP}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="THÊM SẢN PHẨM"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                                </Button>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card VerticalAlignment="Center" Width="180"  Margin="10" Background="#000" UniformCornerRadius="15">
+                                <Button
+                                   Foreground="White"
+                                   Cursor="Hand" 
+                                   FontSize="17"
+                                   Width="180"
+                                   Command="{Binding xoaCT}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="XÓA SẢN PHẨM"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                                </Button>
+                            </materialDesign:Card>
+                        </WrapPanel>
+                    </StackPanel>
+                </materialDesign:Card>
+            </Grid>
+
+            <materialDesign:Card Grid.Row="3" Background="#FFFBFBFB"  Height="50" UniformCornerRadius="15" Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Text="MÃ SẢN PHẨM"></TextBlock>
+
+                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Text="TÊN SẢN PHẨM"></TextBlock>
+
+                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Text="SIZE"></TextBlock>
+
+                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3" Text="SỐ LƯỢNG"></TextBlock>
+
+                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Text="THÀNH TIỀN"></TextBlock>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="4" Background="#FFFBFBFB" UniformCornerRadius="15" Margin="10">
+                <ListBox HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectedItem="{Binding SelectedItemCTHD}"  ItemsSource="{Binding ListCTHD}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card UniformCornerRadius="15" Margin="5" Height="45">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="180"></ColumnDefinition>
+                                        <ColumnDefinition Width="180"></ColumnDefinition>
+                                        <ColumnDefinition Width="180"></ColumnDefinition>
+                                        <ColumnDefinition Width="180"></ColumnDefinition>
+                                        <ColumnDefinition Width="180"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Text="{Binding IDSP}"></TextBlock>
+
+                                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Text="{Binding SANPHAM.tenSP}"></TextBlock>
+
+                                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Text="{Binding SANPHAM.kichCo}"></TextBlock>
+
+                                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3" Text="{Binding soLuongDat}"></TextBlock>
+
+                                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Text="{Binding thanhTien}"></TextBlock>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </materialDesign:Card>
+        </Grid>
+    </materialDesign:Card>
+</Window>

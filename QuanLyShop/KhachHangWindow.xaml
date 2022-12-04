@@ -1,0 +1,214 @@
+﻿<Window x:Class="QuanLyShop.KhachHangWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"      
+        xmlns:local="clr-namespace:QuanLyShop"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        mc:Ignorable="d"
+        Title="KhachHangWindow" 
+        Height="728" Width="1280"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        x:Name="khWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource khVM}" FontFamily="Myriad Pro Light" >
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDowWindow}"
+                                   CommandParameter="{Binding ElementName=khWindow}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <materialDesign:Card  UniformCornerRadius="15" Margin="5" Background="#ffffff" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <materialDesign:PackIcon                 
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                Kind="SubdirectoryArrowRight" />
+                <Button             
+                 Cursor="Hand"
+                 Command="{Binding closeWindow}"
+                 CommandParameter="{Binding ElementName=khWindow}"
+                 HorizontalAlignment="Right"
+                 Width="30"
+                 Height="30"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Style="{StaticResource MaterialDesignRaisedAccentButton}"></Button>
+            </Grid>
+
+            <WrapPanel Grid.Row="1"  VerticalAlignment="Center">
+                <materialDesign:Card  Height="35" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button  
+                           Foreground="White"
+                           Cursor="Hand"
+                           Command="{Binding xemKH}"
+                           HorizontalAlignment="Right"
+                           BorderThickness="0"
+                           Height="35"
+                           FontSize="20"
+                           Content="Xem"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="150"
+                           Background="{x:Null}">
+                    </Button>
+                </materialDesign:Card>
+
+                <materialDesign:Card Margin="10 0 0 0" Height="35" BorderThickness="1" Background="#FFFBFBFB" UniformCornerRadius="15">
+                    <Grid>
+                        <TextBox
+                              Text="{Binding IDTimKiem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                   
+                              x:Name="tbSearchID"
+                              Width="275"
+                              materialDesign:HintAssist.Hint="Tìm Kiếm: ID"
+                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <Button              
+                                Margin="250 0 0 0"
+                                Width="50"
+                                BorderThickness="0"
+                                Background="{x:Null}"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                ToolTip="Tìm Kiếm"
+                                Command="{Binding timKiem}"
+                                materialDesign:RippleAssist.Feedback="#DD000000">
+                            <materialDesign:PackIcon Height="20" Width="20" Kind="SearchWeb"></materialDesign:PackIcon>
+                        </Button>
+                    </Grid>
+                </materialDesign:Card>
+
+                <WrapPanel Margin="630 0 0 0">
+                    <materialDesign:Card  Height="35" Margin="5" Background="#000" UniformCornerRadius="15">
+                        <Button              
+                           Foreground="White"         
+                           Command="{Binding openQuanLy}"
+                           CommandParameter="{Binding ElementName=khWindow}"
+                           HorizontalAlignment="Right"
+                           Name="btVePhimChuaChieu"
+                           BorderThickness="0"
+                           Height="35"
+                           FontSize="20"
+                           Content="Thêm"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="150"
+                           Background="{x:Null}">
+                        </Button>
+                    </materialDesign:Card>
+                </WrapPanel>
+            </WrapPanel>
+
+            <materialDesign:Card Background="#FFFBFBFB"  Grid.Row="2" UniformCornerRadius="15" Margin="10">
+                <ListView x:Name="lVKH" Foreground="Black" FontWeight="Bold" ItemsSource="{Binding ListKH}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}" Background="#FFFDFDFD">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                            <GridViewColumn Header="Họ Tên" DisplayMemberBinding="{Binding hoTen}"></GridViewColumn>
+                            <GridViewColumn Header="Giới Tính" DisplayMemberBinding="{Binding gioiTinh}"></GridViewColumn>
+                            <GridViewColumn Header="Ngày Sinh" DisplayMemberBinding="{Binding ngaySinh}"></GridViewColumn>
+                            <GridViewColumn Header="Số Điện Thoại" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
+                            <GridViewColumn Header="Email" DisplayMemberBinding="{Binding email}"></GridViewColumn>
+                            <GridViewColumn Header="Địa Chỉ" DisplayMemberBinding="{Binding diaChi}"></GridViewColumn>
+                            <GridViewColumn Header="Rank" DisplayMemberBinding="{Binding ranks}"></GridViewColumn>
+                            <GridViewColumn Header="Điểm Tích Lũy" DisplayMemberBinding="{Binding diemTL}"></GridViewColumn>
+                            <GridViewColumn Header="Ảnh">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                BorderBrush="Transparent"
+                                                Style="{StaticResource MaterialDesignFloatingActionButton}">
+                                            <Image  Stretch="Fill" Source="{Binding avatar}"></Image>
+                                        </Button>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding PreviewMouseLeftButtonUp}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListView>
+            </materialDesign:Card>
+
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3">
+                <materialDesign:Card  Height="30" Width="30" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button  
+                           Cursor="Hand"
+                           Command="{Binding btDau}"
+                           HorizontalAlignment="Center"
+                           BorderThickness="0"
+                           Height="30"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="50"
+                           Background="{x:Null}">
+                        <materialDesign:PackIcon Foreground="#fff" Width="15" Height="15" HorizontalAlignment="Center" Kind="SkipBackward" />
+                    </Button>
+                </materialDesign:Card>
+                <materialDesign:Card  Height="30" Width="30" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button  
+                           Cursor="Hand"
+                           Command="{Binding btTruoc}"
+                           HorizontalAlignment="Center"
+                           BorderThickness="0"
+                           Height="30"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="50"
+                           Background="{x:Null}">
+                        <materialDesign:PackIcon Foreground="#fff" Width="15" Height="15" HorizontalAlignment="Center" Kind="StepBackward" />
+
+                    </Button>
+                </materialDesign:Card>
+                <materialDesign:Card Height="30" Width="30" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button  
+                           Cursor="Hand"
+                           Command="{Binding btSau}"
+                           HorizontalAlignment="Center"
+                           BorderThickness="0"
+                           Height="30"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="50"
+                           Background="{x:Null}">
+                        <materialDesign:PackIcon Foreground="#fff" Width="15" Height="15" HorizontalAlignment="Center" Kind="StepForward" />
+
+                    </Button>
+                </materialDesign:Card>
+
+                <materialDesign:Card  Height="30" Width="30" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button  
+                           Cursor="Hand"
+                           Command="{Binding btCuoi}"
+                           HorizontalAlignment="Center"
+                           BorderThickness="0"
+                           Height="30"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="50"
+                           Background="{x:Null}">
+                        <materialDesign:PackIcon Foreground="#fff" Width="15" Height="15" HorizontalAlignment="Center" Kind="SkipForward" />
+                    </Button>
+                </materialDesign:Card>
+            </WrapPanel>
+        </Grid>
+    </materialDesign:Card>
+</Window>

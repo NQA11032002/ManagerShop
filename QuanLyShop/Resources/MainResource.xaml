@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModel="clr-namespace:QuanLyShop.ViewModel">
+    <viewModel:MainViewModel x:Key="mainVM"></viewModel:MainViewModel>
+    <viewModel:KhachHangViewModel x:Key="khVM"></viewModel:KhachHangViewModel>
+    <viewModel:NhanVienViewModel x:Key="nvVM"></viewModel:NhanVienViewModel>
+    <viewModel:SanPhamViewModel x:Key="spVM"></viewModel:SanPhamViewModel>
+    <viewModel:NhapHangViewModel x:Key="nhVM"></viewModel:NhapHangViewModel>
+    <viewModel:HoaDonViewModel x:Key="hdVM"></viewModel:HoaDonViewModel>
+    <viewModel:DangNhapViewModel x:Key="dnVM"></viewModel:DangNhapViewModel>
+    <viewModel:ThongKeViewModel x:Key="tkVM"></viewModel:ThongKeViewModel>
+    <viewModel:TheLoaiViewModel x:Key="tlVM"></viewModel:TheLoaiViewModel>
+</ResourceDictionary>

@@ -1,0 +1,179 @@
+﻿<Window x:Class="QuanLyShop.NhanVienWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyShop"
+        mc:Ignorable="d"
+        Title="NhanVienWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        Height="720" Width="1280"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        x:Name="nvWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource nvVM}" FontFamily="Myriad Pro Light" >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDowWindow}"
+                                   CommandParameter="{Binding ElementName=nvWindow}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <materialDesign:Card UniformCornerRadius="15" Margin="5" Background="#ffffff">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <materialDesign:PackIcon                 
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                Kind="SubdirectoryArrowRight" />
+                <Button             
+                 Cursor="Hand"
+                 Command="{Binding closeWindow}"
+                 CommandParameter="{Binding ElementName=nvWindow}"
+                 HorizontalAlignment="Right"
+                 Width="30"
+                 Height="30"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Style="{StaticResource MaterialDesignRaisedAccentButton}"></Button>
+            </Grid>
+
+            <WrapPanel Grid.Row="1"  VerticalAlignment="Center">
+                <materialDesign:Card  Height="35" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button              
+                           Foreground="White"
+                           Command="{Binding xemNV}"
+                           HorizontalAlignment="Right"
+                           BorderThickness="0"
+                           Height="35"
+                           FontSize="20"
+                           Content="Xem"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="150"
+                           Background="{x:Null}">
+                    </Button>
+                </materialDesign:Card>
+
+                <materialDesign:Card Margin="10 0 0 0" Height="40" BorderThickness="1" Background="#FFFBFBFB" UniformCornerRadius="15">
+                    <Grid>
+                        <TextBox                           
+                              Text="{Binding IDTimKiem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                   
+                              x:Name="tbSearchID"
+                              Width="275"
+                              materialDesign:HintAssist.Hint="Tìm Kiếm: ID"
+                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <Button              
+                                Margin="250 0 0 0"
+                                Width="50"
+                                BorderThickness="0"
+                                Background="{x:Null}"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                ToolTip="Tìm Kiếm"
+                                Command="{Binding timKiem}"
+                                materialDesign:RippleAssist.Feedback="#DD000000">
+                            <materialDesign:PackIcon Height="20" Width="20" Kind="SearchWeb"></materialDesign:PackIcon>
+                        </Button>
+                    </Grid>
+                </materialDesign:Card>
+
+                <WrapPanel Margin="625 0 0 0">
+                    <materialDesign:Card  Height="35" Margin="5" Background="#000" UniformCornerRadius="15">
+                        <Button      
+                           Foreground="White"
+                           Command="{Binding openQuanLy}"
+                           HorizontalAlignment="Right"
+                           BorderThickness="0"
+                           Height="35"
+                           FontSize="20"
+                           Content="Thêm"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="150"
+                           Background="{x:Null}">
+                        </Button>
+                    </materialDesign:Card>
+                </WrapPanel>
+            </WrapPanel>
+            
+            <Grid Grid.Row="2">
+                <ListBox Background="#FFFBFBFB" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Hidden" ItemsSource="{Binding ListNV}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card Background="#FFFBFBFB" Width="600" Height="150" UniformCornerRadius="15" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="165"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Margin="5">
+                                        <Button
+                                            Width="150"
+                                            Height="140"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            BorderBrush="Transparent"
+                                            Style="{StaticResource MaterialDesignFloatingActionButton}">
+                                            <Image Stretch="Fill" Source="{Binding avatar,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></Image>
+                                        </Button>
+                                    </Grid>
+                                    
+                                    <StackPanel VerticalAlignment="Center" Grid.Column="1">
+                                        <WrapPanel Margin="5">
+                                                <TextBlock FontWeight="Bold" FontSize="20" Text="Họ Tên: "></TextBlock>
+                                                <TextBlock FontSize="20" Text="{Binding hoTen, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBlock>
+                                            </WrapPanel>
+
+                                        <WrapPanel Margin="5">
+                                                <TextBlock FontWeight="Bold" FontSize="20" Text="SĐT: "></TextBlock>
+                                                <TextBlock FontSize="20" Text="{Binding SDT, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBlock>
+                                            </WrapPanel>
+
+                                        <WrapPanel Margin="5">
+                                                <TextBlock FontWeight="Bold" FontSize="20" Text="Địa Chỉ: "></TextBlock>
+                                            <TextBlock FontSize="20" Text="{Binding diaChi, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBlock>
+                                        </WrapPanel>
+
+                                        <WrapPanel Margin="5">
+                                            <TextBlock FontWeight="Bold" FontSize="20" Text="Email: "></TextBlock>
+                                            <TextBlock FontSize="20" Text="{Binding email, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBlock>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                    </Grid>
+                                </materialDesign:Card>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"  />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding PreviewMouseLeftButtonUp}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBox>
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
+</Window>

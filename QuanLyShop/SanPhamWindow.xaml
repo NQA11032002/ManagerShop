@@ -1,0 +1,208 @@
+﻿<Window x:Class="QuanLyShop.SanPhamWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyShop"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        mc:Ignorable="d"
+        Title="SanPhamWindow"      
+        Height="720" Width="1280"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        x:Name="spWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource spVM}" 
+        FontFamily="Myriad Pro Light" >
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDowWindow}"
+                                   CommandParameter="{Binding ElementName=spWindow}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <materialDesign:Card  UniformCornerRadius="15" Margin="5" Background="White" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <materialDesign:PackIcon                 
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                Kind="SubdirectoryArrowRight" />
+                <Button             
+                 Cursor="Hand"
+                 Command="{Binding closeWindow}"
+                 CommandParameter="{Binding ElementName=spWindow}"
+                 HorizontalAlignment="Right"
+                 Width="30"
+                 Height="30"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Style="{StaticResource MaterialDesignRaisedAccentButton}"></Button>
+            </Grid>
+
+            <WrapPanel Grid.Row="1">
+                <materialDesign:Card Background="#FFFBFBFB"  Width="174" UniformCornerRadius="15" Margin="5">
+                    <ComboBox 
+                             ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                             Margin="2"
+                             DisplayMemberPath="tenTL"
+                             SelectedValuePath="IDLoai"
+                             ItemsSource="{Binding ListTL}"
+                             SelectedIndex="0"
+                             FontSize="15"
+                             SelectedItem="{Binding SelectedItemTL,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                             Width="150"
+                             materialDesign:HintAssist.Hint="Thể Loại"
+                             Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger  EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectionChangedTL}"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                </materialDesign:Card>
+
+                <materialDesign:Card Background="#FFFBFBFB" Width="174" UniformCornerRadius="15" Margin="5">
+                    <ComboBox 
+                             Margin="2"
+                             FontSize="15"
+                             SelectedIndex="{Binding SelectedIndexSapXep,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                             Width="150"
+                             materialDesign:HintAssist.Hint="Sắp Xếp"
+                             Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger  EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding selectionChangedSapXep}"></i:InvokeCommandAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                        <ComboBoxItem Content="Mặc định"></ComboBoxItem>
+                        <ComboBoxItem Content="Giá từ thấp đến cao"></ComboBoxItem>
+                        <ComboBoxItem Content="Giá từ cao đến thấp"></ComboBoxItem>
+                    </ComboBox>
+                </materialDesign:Card>
+
+                <materialDesign:Card Width="250" Margin="10 0 0 0" Height="40" BorderThickness="1" Background="#FFFBFBFB" UniformCornerRadius="15">
+                    <Grid>
+                        <TextBox 
+                              Margin="2"
+                              Text="{Binding TenTimkiem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                   
+                              Width="230"
+                              materialDesign:HintAssist.Hint="Tìm Kiếm: Tên Sản Phẩm"
+                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <Button              
+                                Margin="200 0 0 0"
+                                Width="50"
+                                BorderThickness="0"
+                                Background="{x:Null}"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                ToolTip="Tìm Kiếm"
+                                Command="{Binding timKiem}"
+                                materialDesign:RippleAssist.Feedback="#DD000000">
+                            <materialDesign:PackIcon Height="20" Width="20" Kind="SearchWeb"></materialDesign:PackIcon>
+                        </Button>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card Width="290" Background="#FFFBFBFB" UniformCornerRadius="15" Margin="10 5  5 5">
+                    <WrapPanel>
+                        <TextBlock Text="Mức Giá: " Margin="0 10 0 0" VerticalAlignment="Center"></TextBlock>
+                        <TextBox   
+                              materialDesign:HintAssist.Hint="Giá Bắt Đầu"
+                              Text="{Binding FromGia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                   
+                              Width="100"
+                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <TextBlock Text="Đến: " Margin="0 10 0 0" VerticalAlignment="Center"></TextBlock>
+                        <TextBox    
+                              materialDesign:HintAssist.Hint="Giá Kết Thúc"
+                              Text="{Binding ToGia,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                   
+                              Width="100"
+                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    </WrapPanel>
+                </materialDesign:Card>
+                
+                <materialDesign:Card  Height="35" Margin="10 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button   
+                           Foreground="White"
+                           Command="{Binding locGiaSanPham}"
+                           BorderThickness="0"
+                           Height="35"
+                           FontSize="20"
+                           Content="Lọc"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="150"
+                           Background="{x:Null}">
+                    </Button>
+                </materialDesign:Card>
+
+                <materialDesign:Card  Height="35" Margin="5" Background="#000" UniformCornerRadius="15">
+                    <Button              
+                           Foreground="White"
+                           Command="{Binding quanLySP}"
+                           BorderThickness="0"
+                           Height="35"
+                           FontSize="20"
+                           Content="Quản Lý"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="150"
+                           Background="{x:Null}">
+                    </Button>
+                </materialDesign:Card>
+            </WrapPanel>
+
+               <ListBox Grid.Row="2" HorizontalAlignment="Center" ItemsSource="{Binding ListSP}" SelectedItem="{Binding SelectedItem}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card UniformCornerRadius="15" Margin="10" Width="200" Height="260">
+                                <StackPanel>
+                                    <Grid VerticalAlignment="Center" Height="200" Margin="5">
+                                        <Image Source="{Binding imageSP}" Stretch="Fill"></Image>
+                                    </Grid>
+
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <WrapPanel>
+                                            <TextBlock FontSize="20" FontFamily="Myriad Pro Light"  Text="{Binding tenSP, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" FontWeight="Bold"></TextBlock>
+                                        </WrapPanel>
+
+                                        <WrapPanel HorizontalAlignment="Center">
+                                            <TextBlock FontSize="20" FontFamily="Myriad Pro Light"  Text="{Binding giaSP, UpdateSourceTrigger=PropertyChanged,StringFormat=C,ConverterCulture=nl-VN,Mode=TwoWay}" FontWeight="Bold"></TextBlock>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </StackPanel>        
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding PreviewMouseLeftButtonUp}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBox>
+        </Grid>
+    </materialDesign:Card>
+</Window>

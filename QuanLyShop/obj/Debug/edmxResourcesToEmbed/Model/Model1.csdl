@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QUANLYSHOPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="QUANLYSHOPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CTHD" EntityType="QUANLYSHOPModel.CTHD" />
+    <EntitySet Name="HOADON" EntityType="QUANLYSHOPModel.HOADON" />
+    <EntitySet Name="KHACHHANG" EntityType="QUANLYSHOPModel.KHACHHANG" />
+    <EntitySet Name="NHANVIEN" EntityType="QUANLYSHOPModel.NHANVIEN" />
+    <EntitySet Name="NHAPHANG" EntityType="QUANLYSHOPModel.NHAPHANG" />
+    <EntitySet Name="SANPHAM" EntityType="QUANLYSHOPModel.SANPHAM" />
+    <EntitySet Name="sysdiagrams" EntityType="QUANLYSHOPModel.sysdiagrams" />
+    <EntitySet Name="THELOAI" EntityType="QUANLYSHOPModel.THELOAI" />
+    <AssociationSet Name="FK__CTHD__IDHD__6D9742D9" Association="QUANLYSHOPModel.FK__CTHD__IDHD__6D9742D9">
+      <End Role="HOADON" EntitySet="HOADON" />
+      <End Role="CTHD" EntitySet="CTHD" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CTHD__IDSP__6E8B6712" Association="QUANLYSHOPModel.FK__CTHD__IDSP__6E8B6712">
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+      <End Role="CTHD" EntitySet="CTHD" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HOADON__IDKhachH__69C6B1F5" Association="QUANLYSHOPModel.FK__HOADON__IDKhachH__69C6B1F5">
+      <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+      <End Role="HOADON" EntitySet="HOADON" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HOADON__IDNhanVi__6ABAD62E" Association="QUANLYSHOPModel.FK__HOADON__IDNhanVi__6ABAD62E">
+      <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+      <End Role="HOADON" EntitySet="HOADON" />
+    </AssociationSet>
+    <AssociationSet Name="FK__NHAPHANG__IDNhan__44952D46" Association="QUANLYSHOPModel.FK__NHAPHANG__IDNhan__44952D46">
+      <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+      <End Role="NHAPHANG" EntitySet="NHAPHANG" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SANPHAM__IDLoai__2334397B" Association="QUANLYSHOPModel.FK__SANPHAM__IDLoai__2334397B">
+      <End Role="THELOAI" EntitySet="THELOAI" />
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CTHD">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDHD" Type="Int32" />
+    <Property Name="IDSP" Type="Int32" />
+    <Property Name="soLuongDat" Type="Int32" />
+    <Property Name="thanhTien" Type="Double" />
+    <NavigationProperty Name="HOADON" Relationship="QUANLYSHOPModel.FK__CTHD__IDHD__6D9742D9" FromRole="CTHD" ToRole="HOADON" />
+    <NavigationProperty Name="SANPHAM" Relationship="QUANLYSHOPModel.FK__CTHD__IDSP__6E8B6712" FromRole="CTHD" ToRole="SANPHAM" />
+  </EntityType>
+  <EntityType Name="HOADON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDNhanVien" Type="Int32" />
+    <Property Name="IDKhachHang" Type="Int32" />
+    <Property Name="ngayDat" Type="DateTime" Precision="0" />
+    <Property Name="trangThai" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CTHD" Relationship="QUANLYSHOPModel.FK__CTHD__IDHD__6D9742D9" FromRole="HOADON" ToRole="CTHD" />
+    <NavigationProperty Name="KHACHHANG" Relationship="QUANLYSHOPModel.FK__HOADON__IDKhachH__69C6B1F5" FromRole="HOADON" ToRole="KHACHHANG" />
+    <NavigationProperty Name="NHANVIEN" Relationship="QUANLYSHOPModel.FK__HOADON__IDNhanVi__6ABAD62E" FromRole="HOADON" ToRole="NHANVIEN" />
+  </EntityType>
+  <EntityType Name="KHACHHANG">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hoTen" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="gioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ngaySinh" Type="DateTime" Precision="0" />
+    <Property Name="SDT" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="diaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ranks" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="diemTL" Type="Int32" />
+    <NavigationProperty Name="HOADON" Relationship="QUANLYSHOPModel.FK__HOADON__IDKhachH__69C6B1F5" FromRole="KHACHHANG" ToRole="HOADON" />
+  </EntityType>
+  <EntityType Name="NHANVIEN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="hoTen" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="gioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ngaySinh" Type="DateTime" Precision="0" />
+    <Property Name="SDT" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="diaChi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="chucVu" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="tenDangNhap" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="matKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="HOADON" Relationship="QUANLYSHOPModel.FK__HOADON__IDNhanVi__6ABAD62E" FromRole="NHANVIEN" ToRole="HOADON" />
+    <NavigationProperty Name="NHAPHANG" Relationship="QUANLYSHOPModel.FK__NHAPHANG__IDNhan__44952D46" FromRole="NHANVIEN" ToRole="NHAPHANG" />
+  </EntityType>
+  <EntityType Name="NHAPHANG">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDNhanVien" Type="Int32" />
+    <Property Name="maSanPham" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tenTheLoai" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="tenSanPham" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="size" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="soLuongNhap" Type="Int32" />
+    <Property Name="giaNhap" Type="Double" />
+    <Property Name="ngayNhap" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="tongTien" Type="Double" />
+    <NavigationProperty Name="NHANVIEN" Relationship="QUANLYSHOPModel.FK__NHAPHANG__IDNhan__44952D46" FromRole="NHAPHANG" ToRole="NHANVIEN" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDLoai" Type="Int32" Nullable="false" />
+    <Property Name="tenSP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="giaSP" Type="Double" />
+    <Property Name="soLuong" Type="Int32" />
+    <Property Name="kichCo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="mieuTaSP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="imageSP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CTHD" Relationship="QUANLYSHOPModel.FK__CTHD__IDSP__6E8B6712" FromRole="SANPHAM" ToRole="CTHD" />
+    <NavigationProperty Name="THELOAI" Relationship="QUANLYSHOPModel.FK__SANPHAM__IDLoai__2334397B" FromRole="SANPHAM" ToRole="THELOAI" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="THELOAI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tenTL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SANPHAM" Relationship="QUANLYSHOPModel.FK__SANPHAM__IDLoai__2334397B" FromRole="THELOAI" ToRole="SANPHAM" />
+  </EntityType>
+  <Association Name="FK__CTHD__IDHD__6D9742D9">
+    <End Type="QUANLYSHOPModel.HOADON" Role="HOADON" Multiplicity="0..1" />
+    <End Type="QUANLYSHOPModel.CTHD" Role="CTHD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOADON">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CTHD">
+        <PropertyRef Name="IDHD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CTHD__IDSP__6E8B6712">
+    <End Type="QUANLYSHOPModel.SANPHAM" Role="SANPHAM" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QUANLYSHOPModel.CTHD" Role="CTHD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SANPHAM">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CTHD">
+        <PropertyRef Name="IDSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HOADON__IDKhachH__69C6B1F5">
+    <End Type="QUANLYSHOPModel.KHACHHANG" Role="KHACHHANG" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QUANLYSHOPModel.HOADON" Role="HOADON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHACHHANG">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HOADON">
+        <PropertyRef Name="IDKhachHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HOADON__IDNhanVi__6ABAD62E">
+    <End Type="QUANLYSHOPModel.NHANVIEN" Role="NHANVIEN" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QUANLYSHOPModel.HOADON" Role="HOADON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHANVIEN">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HOADON">
+        <PropertyRef Name="IDNhanVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__NHAPHANG__IDNhan__44952D46">
+    <End Type="QUANLYSHOPModel.NHANVIEN" Role="NHANVIEN" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QUANLYSHOPModel.NHAPHANG" Role="NHAPHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHANVIEN">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="NHAPHANG">
+        <PropertyRef Name="IDNhanVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SANPHAM__IDLoai__2334397B">
+    <End Type="QUANLYSHOPModel.THELOAI" Role="THELOAI" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QUANLYSHOPModel.SANPHAM" Role="SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="THELOAI">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="IDLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

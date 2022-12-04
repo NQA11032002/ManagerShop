@@ -1,0 +1,347 @@
+﻿<Window x:Class="QuanLyShop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyShop"
+        xmlns:wd="clr-namespace:QuanLyShop"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:lv="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="720" Width="1280"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        x:Name="MainWindows"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource mainVM}"
+        FontFamily="Lato">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDowWindow}"
+                                   CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <materialDesign:Card Background="#edf1f5" Margin="5" UniformCornerRadius="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border CornerRadius="10 10 0 0" Height="73" Background="#20222a" VerticalAlignment="Center">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <WrapPanel>
+                        <Button
+                            Margin="5 0 0 0"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            BorderBrush="Transparent"
+                            Style="{StaticResource MaterialDesignFloatingActionButton}">
+                            <Image  Stretch="Fill" Source="{Binding Avatar}"></Image>
+                        </Button>
+
+                        <StackPanel Margin="5 0 0 0" VerticalAlignment="Center">
+                            <TextBlock DataContext="{StaticResource dnVM}" FontSize="20" Width="200" FontWeight="bold" Foreground="White" Text="{Binding HoTen}" FontFamily="Adobe Gothic Std B" ></TextBlock>
+                            <TextBlock DataContext="{StaticResource dnVM}" FontSize="15" Width="200" FontWeight="bold" Foreground="White" Text="{Binding ChucVu}" FontFamily="Adobe Gothic Std B" ></TextBlock>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <WrapPanel  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Margin="10">
+                        <Grid>
+                            <Button         
+                                    Command="{Binding miniWindow}"
+                                    CommandParameter="{Binding ElementName=MainWindows}"
+                                    Panel.ZIndex="1"
+                                    Width="30"
+                                    Height="30"
+                                    Opacity="0"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                    ToolTip="Resource name: MaterialDesignRaisedAccentButton"></Button>
+
+                            <materialDesign:PackIcon                 
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="White"
+                                    HorizontalAlignment="Center"                
+                                    Kind="WindowMinimize" />
+                        </Grid>
+
+                        <Grid VerticalAlignment="Center">
+                            <Button              
+                                    Name="closeWindow"
+                                    Command="{Binding closeWindow}"
+                                    CommandParameter="{Binding ElementName=MainWindows}"
+                                    Panel.ZIndex="1"
+                                    Width="30"
+                                    Height="30"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                    ToolTip="Resource name: MaterialDesignRaisedAccentButton"></Button>
+                            <materialDesign:PackIcon     
+                                    Width="30"
+                                    Height="30"
+                                    Foreground="White"
+                                    HorizontalAlignment="Center"
+                                    Kind="WindowClose" />
+
+                        </Grid>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="185"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Border CornerRadius="0 0 0 5" Background="#20222a">
+                    <ListView x:Name="lvMenu" Cursor="Hand" Width="180" HorizontalAlignment="Center" Foreground="#fff" FontWeight="Bold" FontSize="15">
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon  Kind="Home" Height="40" Width="30" VerticalAlignment="Center"/>
+                            <ListViewItem  Width="110" Content="TRANG CHỦ">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding trangChuWindow}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Height="40" Width="30" Kind="AccountMultiplePlusOutline" VerticalAlignment="Center"/>
+                            <ListViewItem  Width="125" Name="lvChildKhachHang" Content="KHÁCH HÀNG">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding KhachHangWindow}"
+                                                                CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Height="40" Width="30" Kind="TshirtCrew" VerticalAlignment="Center"/>
+                            <ListViewItem  Width="110" Content="SẢN PHẨM">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding SanPhamWindow}"
+                                                           CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Height="40" Width="30" Kind="BriefcaseOutline" VerticalAlignment="Center" />
+                            <ListViewItem Width="110" Content="ĐƠN HÀNG">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding hoaDonWindow}"
+                                                           CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Height="40" Width="30" Kind="Store" VerticalAlignment="Center"/>
+                            <ListViewItem  Width="110" Content="NHẬP HÀNG">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding nhapHangWindow}"
+                                                           CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Height="40" Width="30" Kind="CubeOutline" VerticalAlignment="Center"/>
+                            <ListViewItem  Width="110" Content="THỂ LOẠI">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding theloaiWindow}"
+                                                           CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Height="40" Width="30" Kind="AccountBoxOutline" VerticalAlignment="Center"/>
+                            <ListViewItem  Width="110" Content="THÔNG TIN">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding thongTinWindow}"
+                                                           CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 5 0 0">
+                            <materialDesign:PackIcon Height="40" Width="30" Kind="Finance" VerticalAlignment="Center"/>
+                            <ListViewItem  Width="110" Content="THỐNG KÊ">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding thongKeWindow}"
+                                                               CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 5 0 0" DataContext="{StaticResource dnVM}" Visibility="{Binding visibilityQL}">
+                            <materialDesign:PackIcon Height="40" Width="30" Kind="AccountStar" VerticalAlignment="Center" />
+                            <ListViewItem Content="QUẢN LÝ">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding nhanVienWindow}"
+                                                               CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+
+                        <WrapPanel Margin="0 30 0 0">
+                            <materialDesign:PackIcon Height="40" Width="30" Kind="LogoutVariant" VerticalAlignment="Center"/>
+                            <ListViewItem  Width="110" Content="ĐĂNG XUẤT">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding dangXuatWindow}"
+                                                           CommandParameter="{Binding ElementName=MainWindows}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ListViewItem>
+                        </WrapPanel>
+                    </ListView>
+                </Border>
+
+                <Grid Grid.Column="1">
+                    <Grid x:Name="grTrangChu">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="250"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="330" Margin="10"  Background="#fff" Height="200" CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Text="Số Đơn Hàng Trong Ngày:" 
+                                               HorizontalAlignment="Center" 
+                                               FontSize="30" 
+                                               TextWrapping="WrapWithOverflow"></TextBlock>
+
+                                    <Grid Margin="0 30 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="14"></ColumnDefinition>
+                                            <ColumnDefinition Width="206"/>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock FontWeight="Bold" Foreground="Black" 
+                                                   Text="{Binding tongHoaDonThanhToanTrongNgay,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center" 
+                                                   FontSize="30" 
+                                                   Grid.Column="1" ></TextBlock>
+
+                                        <materialDesign:PackIcon Grid.Column="2" HorizontalAlignment="Center" Width="50" Height="50" Kind="BriefcaseOutline" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Width="330" Margin="10" Background="#fff" Height="200" CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock Margin="5" 
+                                               Text="Doanh Thu Trong Ngày:" 
+                                               FontWeight="Bold" 
+                                               HorizontalAlignment="Center" 
+                                               FontSize="30" 
+                                               TextWrapping="WrapWithOverflow"></TextBlock>
+
+                                    <Grid Margin="0 26 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="{Binding tongDoanhThuTrongNgay, StringFormat=C,ConverterCulture=nl-VN , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                   FontWeight="Bold" 
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center" 
+                                                   Margin="5 0 0 0" 
+                                                   FontSize="30" ></TextBlock>
+
+                                        <materialDesign:PackIcon  Grid.Column="1" HorizontalAlignment="Center" Width="50" Height="50" Kind="Bank" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Width="330" Margin="10" Background="#fff" Height="200" CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock Text="Số Sản Phẩm Bán Trong Ngày:" 
+                                               FontWeight="Bold" 
+                                               HorizontalAlignment="Center" 
+                                               FontSize="30" 
+                                               TextWrapping="WrapWithOverflow"></TextBlock>
+
+                                    <Grid Margin="0 30 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="220"></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="{Binding tongSanPhamBanTrongNgay, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                                   FontWeight="Bold" 
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Center" 
+                                                   FontSize="30"></TextBlock>
+
+                                        <materialDesign:PackIcon Grid.Column="1" HorizontalAlignment="Center" Width="50" Height="50" Kind="CartOutline" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </WrapPanel>
+
+                        <Border Background="White" CornerRadius="15" Margin="10" Width="1040" Grid.Row="1">
+                            <lv:CartesianChart ToolTip="Tổng số sản phẩm bán ra trong tháng" Series="{Binding SeriesCollection}" LegendLocation="Bottom">
+                                <lv:CartesianChart.AxisX>
+                                    <lv:Axis Title="Ngày Hiện Tại" Labels="{Binding Labels}"></lv:Axis>
+                                </lv:CartesianChart.AxisX>
+
+                                <lv:CartesianChart.AxisY>
+                                    <lv:Axis Title="Thông Số" LabelFormatter="{Binding Format}"></lv:Axis>
+                                </lv:CartesianChart.AxisY>
+                            </lv:CartesianChart>
+                        </Border>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+    </materialDesign:Card>
+</Window>

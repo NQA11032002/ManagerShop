@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="32fd7332ec354c239b4d506d65f21e5f" Name="Diagram1" ZoomLevel="16">
+        <EntityTypeShape EntityType="QUANLYSHOPModel.CTHD" Width="1.5" PointX="5.25" PointY="2.125" />
+        <EntityTypeShape EntityType="QUANLYSHOPModel.HOADON" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="QUANLYSHOPModel.KHACHHANG" Width="1.5" PointX="5.375" PointY="6.125" />
+        <EntityTypeShape EntityType="QUANLYSHOPModel.NHANVIEN" Width="1.5" PointX="0.75" PointY="2.625" />
+        <EntityTypeShape EntityType="QUANLYSHOPModel.NHAPHANG" Width="1.5" PointX="3" PointY="6.25" />
+        <EntityTypeShape EntityType="QUANLYSHOPModel.SANPHAM" Width="1.5" PointX="7.875" PointY="2.25" />
+        <EntityTypeShape EntityType="QUANLYSHOPModel.sysdiagrams" Width="1.5" PointX="9" PointY="10.875" />
+        <EntityTypeShape EntityType="QUANLYSHOPModel.THELOAI" Width="1.5" PointX="7.875" PointY="5.75" />
+        <AssociationConnector Association="QUANLYSHOPModel.FK__CTHD__IDHD__6D9742D9" />
+        <AssociationConnector Association="QUANLYSHOPModel.FK__CTHD__IDSP__6E8B6712" />
+        <AssociationConnector Association="QUANLYSHOPModel.FK__HOADON__IDKhachH__69C6B1F5" />
+        <AssociationConnector Association="QUANLYSHOPModel.FK__HOADON__IDNhanVi__6ABAD62E" />
+        <AssociationConnector Association="QUANLYSHOPModel.FK__NHAPHANG__IDNhan__44952D46" />
+        <AssociationConnector Association="QUANLYSHOPModel.FK__SANPHAM__IDLoai__2334397B" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

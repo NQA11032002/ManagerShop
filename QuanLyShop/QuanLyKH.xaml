@@ -1,0 +1,264 @@
+﻿<Window x:Class="QuanLyShop.QuanLyKH"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyShop"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        mc:Ignorable="d"        
+        Title="QuanLyKhachHang" Height="450" Width="680"
+        TextElement.Foreground="Black"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        
+        FontWeight="ExtraBlack"
+        x:Name="khQuanLy"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource khVM}"
+        Foreground="Black"
+        FontFamily="Myriad Pro Light">
+    <materialDesign:Card UniformCornerRadius="15" Margin="5" Background="#FFFBFBFB">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <TextBlock VerticalAlignment="Center" Text="THÔNG TIN KHÁCH HÀNG"  FontSize="30" HorizontalAlignment="Center" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Arial Black"></TextBlock>
+
+                <materialDesign:PackIcon    
+                                VerticalAlignment="Center"
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                Kind="SubdirectoryArrowRight" />
+                <Button             
+                 Cursor="Hand"
+                 Command="{Binding closeWindow}"
+                 CommandParameter="{Binding ElementName=khQuanLy}"
+                 HorizontalAlignment="Right"
+                 Width="30"
+                 Height="30"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Style="{StaticResource MaterialDesignRaisedAccentButton}"></Button>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel VerticalAlignment="Center" Margin="0 -30 0 0">
+                    <materialDesign:Card Height="160" UniformCornerRadius="15" Margin="10">
+                        <Image Source="{Binding Avatar}"></Image>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card  Background="#000" Margin="10" UniformCornerRadius="15">
+                        <Button  
+                           Cursor="Hand"
+                           FontSize="20"
+                           Width="150"
+                           Foreground="White"
+                           Command="{Binding openFolder}"
+                           HorizontalAlignment="Center"
+                           Name="btVePhimChuaChieu"
+                           BorderThickness="0"
+                           Content="Chọn Ảnh"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Background="{x:Null}">
+                        </Button>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card Visibility="{Binding visibilityUpdateDelec}"  Width="150"  Margin="10" Background="#000" UniformCornerRadius="15">
+                        <Button    
+                                   Cursor="Hand"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   Width="150"
+                                   Command="{Binding xoaKH}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="Xóa"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                        </Button>
+                    </materialDesign:Card>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <WrapPanel>
+                        <StackPanel Margin="5">
+                            <TextBlock Margin="10 5 0 0" Text="ID Khách Hàng" FontSize="15" FontWeight="Bold"></TextBlock>
+                            <Border Margin="0 5 0 0" Width="230" BorderBrush="black" BorderThickness="1" CornerRadius="15">
+                                <TextBox
+                                      IsEnabled="False"
+                                      FontSize="15"
+                                      Text="{Binding ID,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                      x:Name="tbID"  
+                                      FontWeight="Bold"
+                                      Width="210"
+                                      materialDesign:HintAssist.Hint="ID"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Margin="10 5 0 0" Text="Họ Tên" FontSize="15" FontWeight="Bold"></TextBlock>
+                            <Border Margin="0 5 0 0" Width="230" BorderBrush="Black" BorderThickness="1" CornerRadius="15">
+                                <TextBox
+                                      FontSize="15"
+                                      Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                      x:Name="tbHoTen"  
+                                      FontWeight="Bold"
+                                      Width="210"
+                                      materialDesign:HintAssist.Hint="Name"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Margin="10 5 0 0" Text="ID Khách Hàng" FontSize="15" FontWeight="Bold"></TextBlock>
+                            <Border Height="40"  Margin="0 5 0 0" Width="230" BorderBrush="Black" BorderThickness="1" CornerRadius="15">
+                                <WrapPanel Margin="10 0 0 0" VerticalAlignment="Center">
+                                    <RadioButton FontSize="15" IsChecked="{Binding CheckGioiTinhNam}" Content="Nam">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger  EventName="Checked">
+                                                <i:InvokeCommandAction Command="{Binding checkedNam}"></i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
+
+                                    <RadioButton FontSize="15" IsChecked="{Binding CheckGioiTinhNu}" Margin="10 0 0 0" Content="Nữ">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger  EventName="Checked">
+                                                <i:InvokeCommandAction Command="{Binding checkedNu}"></i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </RadioButton>
+                                </WrapPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Margin="10 5 0 0" Text="Ngày Sinh" FontSize="15" FontWeight="Bold"></TextBlock>
+                            <Border Margin="0 5 0 0" Width="230" BorderBrush="Black" BorderThickness="1" CornerRadius="15">
+                                <DatePicker 
+                                      FontSize="15"
+                                      Width="210"
+                                      SelectedDate="{Binding NgaySinh, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                      SelectedDateFormat="Short"
+                                      materialDesign:HintAssist.Hint="Ngày Sinh"
+                                      Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                </DatePicker>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Margin="10 5 0 0" Text="Số Điện Thoại" FontSize="15" FontWeight="Bold"></TextBlock>
+                            <Border Margin="0 5 0 0" Width="230" BorderBrush="Black" BorderThickness="1" CornerRadius="15">
+                                <TextBox
+                                      FontSize="15"
+                                      Text="{Binding SDT, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                      FontWeight="Bold"
+                                      Width="210"
+                                      materialDesign:HintAssist.Hint="Số Điện Thoại"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Margin="10 5 0 0" Text="Email" FontSize="15" FontWeight="Bold"></TextBlock>
+                            <Border Margin="0 5 0 0" Width="230" BorderBrush="Black" BorderThickness="1" CornerRadius="15">
+                                <TextBox
+                                      FontSize="15"     
+                                      Text="{Binding Email, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                      FontWeight="Bold"
+                                      Width="210"
+                                      materialDesign:HintAssist.Hint="Email"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Margin="10 5 0 0" Text="Địa Chỉ" FontSize="15" FontWeight="Bold"></TextBlock>
+                            <Border Margin="0 5 0 0" Width="230" BorderBrush="Black" BorderThickness="1" CornerRadius="15">
+                                <TextBox
+                                      FontSize="15"
+                                      Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                      FontWeight="Bold"
+                                      Width="210"
+                                      materialDesign:HintAssist.Hint="Địa Chỉ"
+                                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Margin="5">
+                            <TextBlock Margin="10 5 0 0" Text="Hạng" FontSize="15" FontWeight="Bold"></TextBlock>
+                            <Border Margin="0 5 0 0" Width="230" BorderBrush="Black" BorderThickness="1" CornerRadius="15">
+                                <ComboBox 
+                                      FontSize="15"
+                                      SelectedIndex="{Binding SelecteIndex,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                      Width="210"
+                                      materialDesign:HintAssist.Hint="Hạng"
+                                      Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger  EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding selectionChanged}"></i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <ComboBoxItem Content="Đồng"></ComboBoxItem>
+                                    <ComboBoxItem Content="Bạc"></ComboBoxItem>
+                                    <ComboBoxItem Content="Vàng"></ComboBoxItem>
+                                    <ComboBoxItem Content="Kim Cương"></ComboBoxItem>
+                                    <ComboBoxItem Content="Cao Thủ"></ComboBoxItem>
+                                </ComboBox>
+                            </Border>
+                        </StackPanel>
+
+                        <Grid>
+                            <materialDesign:Card Visibility="{Binding visibility}" Width="400" Margin="50 10 5 5" Background="#000" UniformCornerRadius="15">
+                                <Button  
+                                   FontSize="20"
+                                   Width="400"
+                                   Command="{Binding themKH}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="Thêm"
+                                   Foreground="White"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                                </Button>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card Visibility="{Binding visibilityUpdateDelec}" Width="400"  Margin="50 10 5 5" Background="#000" UniformCornerRadius="15">
+                                <Button
+                                   Foreground="White"
+                                   Cursor="Hand"
+                                   FontSize="20"
+                                   Width="400"
+                                   Command="{Binding suaKH}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="Cập Nhật"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                                </Button>
+                            </materialDesign:Card>
+                        </Grid>
+                    </WrapPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
+</Window>

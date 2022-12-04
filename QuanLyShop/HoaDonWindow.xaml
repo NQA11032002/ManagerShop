@@ -1,0 +1,283 @@
+﻿<Window x:Class="QuanLyShop.HoaDonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyShop"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        mc:Ignorable="d"
+        Title="HoaDonWindow" 
+        Height="732" Width="1280"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        x:Name="hdWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource hdVM}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDowWindow}"
+                                   CommandParameter="{Binding ElementName=hdWindow}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <materialDesign:Card UniformCornerRadius="15" Margin="5" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="45"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <materialDesign:PackIcon    
+                                VerticalAlignment="Center"
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                Kind="SubdirectoryArrowRight" />
+                <Button             
+                 Cursor="Hand"
+                 Command="{Binding closeWindow}"
+                 CommandParameter="{Binding ElementName=hdWindow}"
+                 HorizontalAlignment="Right"
+                 Width="30"
+                 Height="30"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Style="{StaticResource MaterialDesignRaisedAccentButton}"></Button>
+            </Grid>
+
+            <WrapPanel Grid.Row="1">
+                <materialDesign:Card VerticalAlignment="Center" Height="39" HorizontalAlignment="Right"  Width="170"  Margin="15 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button    
+                                   Height="40"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Width="170"
+                                   Foreground="White"
+                                   Command="{Binding xoaTatCaHD}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="Xóa Tất Cả"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                    </Button>
+                </materialDesign:Card>
+                
+                <materialDesign:Card VerticalAlignment="Center" Height="39" HorizontalAlignment="Right"  Width="170"  Margin="15 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button    
+                                   Height="40"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Width="170"
+                                   Command="{Binding xemHD}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="Xem Hóa Đơn"
+                                   Foreground="White"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                    </Button>
+                </materialDesign:Card>
+
+                <materialDesign:Card VerticalAlignment="Center" Height="39" HorizontalAlignment="Right"  Width="170"  Margin="15 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button    
+                                   Height="40"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Width="170"
+                                   Command="{Binding xemHDDaThanhToan}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="Đã Thanh Toán"
+                                   Foreground="White"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                    </Button>
+                </materialDesign:Card>
+
+                <materialDesign:Card VerticalAlignment="Center" Height="39" HorizontalAlignment="Right"  Width="170"  Margin="15 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button    
+                                   Height="40"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Width="170"
+                                   Command="{Binding xemHDChuaThanhToan}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="Chưa Thành Toán"
+                                   Foreground="White"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                    </Button>
+                </materialDesign:Card>
+
+                <materialDesign:Card Margin="15 5 5 5" Height="40" BorderThickness="1" Background="#FFFBFBFB" UniformCornerRadius="15">
+                    <Grid>
+                        <TextBox  
+                              FontWeight="Bold"
+                              Text="{Binding TimKiemHD,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                   
+                              Width="275"
+                              materialDesign:HintAssist.Hint="Tìm Kiếm: ID Hóa Đơn"
+                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                        <Button      
+                                Foreground="White"
+                                Height="40"
+                                Margin="250 0 0 0"
+                                Width="50"
+                                BorderThickness="0"
+                                Background="{x:Null}"
+                                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                ToolTip="Tìm Kiếm"
+                                Command="{Binding timKiemID}"
+                                materialDesign:RippleAssist.Feedback="#DD000000">
+                            <materialDesign:PackIcon Foreground="Black" Height="20" Width="20" Kind="SearchWeb"></materialDesign:PackIcon>
+                        </Button>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card VerticalAlignment="Center" Height="40" HorizontalAlignment="Right"  Width="170"  Margin="10 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button    
+                                   Foreground="White"
+                                   Height="40"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Width="170"
+                                   Command="{Binding taoHD}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="Tạo Hóa Đơn"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                    </Button>
+                </materialDesign:Card>
+            </WrapPanel>
+
+            <StackPanel Grid.Row="2">
+                <materialDesign:Card Height="50" Background="#FFFBFBFB" UniformCornerRadius="5" Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Text="MÃ HĐ"></TextBlock>
+
+                        <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Text="KHÁCH HÀNG"></TextBlock>
+
+                        <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Text="NGÀY HĐ"></TextBlock>
+
+                        <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3" Text="TRẠNG THÁI"></TextBlock>
+
+                    </Grid>
+                </materialDesign:Card>
+            </StackPanel>
+
+            <materialDesign:Card Background="#FFFBFBFB" Grid.Row="3" UniformCornerRadius="15" Margin="10">
+                <ListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Center" ItemsSource="{Binding ListHoaDon}" SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card UniformCornerRadius="15" Margin="5" Height="45">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="300"></ColumnDefinition>
+                                        <ColumnDefinition Width="300"></ColumnDefinition>
+                                        <ColumnDefinition Width="300"></ColumnDefinition>
+                                        <ColumnDefinition Width="300"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock FontWeight="Bold" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding ID}"></TextBlock>
+
+                                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Text="{Binding KHACHHANG.hoTen}"></TextBlock>
+
+                                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2" Text="{Binding ngayDat,StringFormat=dd/MM/yyyy}"></TextBlock>
+
+                                    <TextBlock FontWeight="Bold" FontSize="20"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3" Text="{Binding trangThai}"></TextBlock>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding PreviewMouseLeftButtonUp}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBox>
+            </materialDesign:Card>
+
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4">
+                <materialDesign:Card  Height="30" Width="30" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button  
+                           Cursor="Hand"
+                           Command="{Binding btDau}"
+                           HorizontalAlignment="Center"
+                           BorderThickness="0"
+                           Height="30"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="50"
+                           Background="{x:Null}">
+                        <materialDesign:PackIcon Foreground="#fff" Width="15" Height="15" HorizontalAlignment="Center" Kind="SkipBackward" />
+                    </Button>
+                </materialDesign:Card>
+                <materialDesign:Card  Height="30" Width="30" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button  
+                           Cursor="Hand"
+                           Command="{Binding btTruoc}"
+                           HorizontalAlignment="Center"
+                           BorderThickness="0"
+                           Height="30"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="50"
+                           Background="{x:Null}">
+                        <materialDesign:PackIcon Foreground="#fff" Width="15" Height="15" HorizontalAlignment="Center" Kind="StepBackward" />
+
+                    </Button>
+                </materialDesign:Card>
+                <materialDesign:Card Height="30" Width="30" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button  
+                           Cursor="Hand"
+                           Command="{Binding btSau}"
+                           HorizontalAlignment="Center"
+                           BorderThickness="0"
+                           Height="30"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="50"
+                           Background="{x:Null}">
+                        <materialDesign:PackIcon Foreground="#fff" Width="15" Height="15" HorizontalAlignment="Center" Kind="StepForward" />
+
+                    </Button>
+                </materialDesign:Card>
+
+                <materialDesign:Card  Height="30" Width="30" Margin="12 5 5 5" Background="#000" UniformCornerRadius="15">
+                    <Button  
+                           Cursor="Hand"
+                           Command="{Binding btCuoi}"
+                           HorizontalAlignment="Center"
+                           BorderThickness="0"
+                           Height="30"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="50"
+                           Background="{x:Null}">
+                        <materialDesign:PackIcon Foreground="#fff" Width="15" Height="15" HorizontalAlignment="Center" Kind="SkipForward" />
+                    </Button>
+                </materialDesign:Card>
+            </WrapPanel>
+
+        </Grid>
+    </materialDesign:Card>
+</Window>

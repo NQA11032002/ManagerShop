@@ -1,0 +1,142 @@
+﻿<Window x:Class="QuanLyShop.ThongTinSP"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyShop"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="ThongTinSP"
+        
+        Height="500" Width="730"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        x:Name="QuanLySPWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource spVM}" 
+        FontFamily="Myriad Pro Light">
+
+    <materialDesign:Card UniformCornerRadius="15" Margin="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid VerticalAlignment="Center" Height="400" Width="300">
+                <Image Source="{Binding Image, UpdateSourceTrigger=PropertyChanged}"></Image>
+            </Grid>
+
+            <Grid Grid.Column="1" VerticalAlignment="Top">
+                <materialDesign:PackIcon                 
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                Kind="SubdirectoryArrowRight" />
+                <Button             
+                             Cursor="Hand"
+                             Command="{Binding closeWindow}"
+                             CommandParameter="{Binding ElementName=QuanLySPWindow}"
+                             HorizontalAlignment="Right"
+                             Width="30"
+                             Height="30"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Style="{StaticResource MaterialDesignRaisedAccentButton}"></Button>
+            </Grid>
+
+            <StackPanel Margin="0 50 0 0" Grid.Column="1">
+                <TextBox Margin="5" FontWeight="Bold" FontSize="35"  Text="{Binding TenSP,UpdateSourceTrigger=PropertyChanged}" FontFamily="Franklin Gothic Demi Cond"></TextBox>
+
+                <WrapPanel Margin="5">
+                    <TextBox Width="350" FontWeight="Bold" FontSize="25" Text="{Binding GiaSP,UpdateSourceTrigger=PropertyChanged,StringFormat=C,ConverterCulture=nl-VN}"></TextBox>
+                </WrapPanel>
+
+                <WrapPanel Margin="5">
+                    <TextBlock VerticalAlignment="Center" FontWeight="Bold" Margin="0 15 0 0" FontSize="20" Text="Loại sản phẩm: "></TextBlock>
+                    <ComboBox  
+                             FontWeight="Bold"
+                             ItemsSource="{Binding ListTL}"
+                             SelectedValuePath="ID"
+                             SelectedItem="{Binding SelectedItemQLTL}"
+                             DisplayMemberPath="tenTL"
+                             FontSize="15"
+                             Width="200"
+                             SelectedIndex="{Binding SelectedIndexQLTL, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Chọn loại sản phẩm"
+                             Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    </ComboBox>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </WrapPanel>
+
+                <WrapPanel Margin="5">
+                    <TextBlock FontWeight="Bold" FontSize="20" Text="Số Lượng: "></TextBlock>
+                    <TextBox IsReadOnly="{Binding IsReadOnly}" Width="240" FontWeight="Bold" FontSize="20" Text="{Binding SoLuong,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </WrapPanel>
+
+                <WrapPanel Margin="5">
+                    <TextBlock FontWeight="Bold" FontSize="20" Text="Kích cỡ: "></TextBlock>
+                    <TextBox    
+                               IsReadOnly="{Binding IsReadOnly}"
+                               Margin="0 -15 0 0"
+                               FontSize="15"
+                               Text="{Binding KichCo, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                               FontWeight="Bold"
+                               Width="260"
+                               Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                </WrapPanel>
+
+                <TreeView Margin="5">
+                    <TreeViewItem
+                        FontWeight="Bold"
+                        FontSize="20"
+                        Header="Chi tiết sản phẩm">
+                        <TextBox IsReadOnly="{Binding IsReadOnly}" FontSize="16" TextWrapping="Wrap" Width="300" Text="{Binding MieuTa,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    </TreeViewItem>
+                </TreeView>
+
+                <WrapPanel VerticalAlignment="Bottom">
+                    <materialDesign:Card  Height="35" Margin="5" Background="#000" UniformCornerRadius="15">
+                        <Button     
+                           Foreground="White"
+                           Command="{Binding suaSP}"
+                           BorderThickness="0"
+                           Height="35"
+                           FontSize="20"
+                           Content="Cập Nhật"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="150"
+                           Background="{x:Null}">
+                        </Button>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card  Height="35" Margin="5" Background="#000" UniformCornerRadius="15">
+                        <Button              
+                           Foreground="White"
+                           Command="{Binding xoaSP}"
+                           BorderThickness="0"
+                           Height="35"
+                           FontSize="20"
+                           Content="Xóa"
+                           Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                           Width="150"
+                           Background="{x:Null}">
+                        </Button>
+                    </materialDesign:Card>
+                </WrapPanel>
+            </StackPanel>
+        </Grid>
+    </materialDesign:Card>
+</Window>

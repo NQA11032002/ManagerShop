@@ -1,0 +1,202 @@
+﻿<Window x:Class="QuanLyShop.ThongKeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyShop"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:lv="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        
+        mc:Ignorable="d"
+        Title="ThongKeWindow"
+        Height="720" Width="1280"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        x:Name="thongKeWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource tkVM}"
+        FontFamily="Lato">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDowWindow}"
+                                   CommandParameter="{Binding ElementName=thongKeWindow}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <materialDesign:Card Background="WhiteSmoke" UniformCornerRadius="15" Margin="5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="250"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <materialDesign:Card HorizontalAlignment="Left" VerticalAlignment="Center" Height="30"  Width="130"  Margin="15 5 5 5" Background="#000" UniformCornerRadius="15">
+                <Button    
+                                   Height="30"
+                                   FontSize="15"
+                                   FontWeight="Bold"
+                                   Width="170"
+                                   Command="{Binding xemTK}"
+                                   HorizontalAlignment="Center"
+                                   BorderThickness="0"                          
+                                   Content="Xem Thống Kê"
+                                   Foreground="White"
+                                   Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                                   Background="{x:Null}">
+                </Button>
+            </materialDesign:Card>
+
+            <Grid>
+                <materialDesign:PackIcon      
+                                Foreground="Black"   
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right"
+                                Kind="SubdirectoryArrowRight" />
+                <Button       
+                 Cursor="Hand"
+                 Command="{Binding closeWindow}"
+                 CommandParameter="{Binding ElementName=thongKeWindow}"
+                 HorizontalAlignment="Right"
+                 Width="30"
+                 Height="30"
+                 Background="Transparent"
+                 BorderThickness="0"
+                 Style="{StaticResource MaterialDesignRaisedAccentButton}"></Button>
+            </Grid>
+
+            <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
+                <materialDesign:Card UniformCornerRadius="15" Margin="5" Width="330" Height="200">
+                    <materialDesign:Card.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="#BFD9FE" Offset="1"/>
+                        </LinearGradientBrush>
+                    </materialDesign:Card.Background>
+
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="khách Hàng Doanh Số Cao Nhất Tháng:" Height="90" HorizontalAlignment="Center" FontSize="35" TextWrapping="WrapWithOverflow"></TextBlock>
+
+                        <Grid Height="105" Margin="0 5 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock FontWeight="Bold" Text="{Binding IDKH,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFF96B36" FontSize="35"></TextBlock>
+                                <TextBlock FontWeight="Bold" Text="{Binding HoTenKH,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFF96B36" FontSize="25"></TextBlock>
+                                <TextBlock FontWeight="Bold" Text="{Binding Rank,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFF96B36" FontSize="20"></TextBlock>
+                            </StackPanel>
+
+                            <materialDesign:PackIcon Foreground="#FFF96B36" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Center" Width="70" Height="70" Kind="TrophyOutline" />
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card UniformCornerRadius="15" Margin="50 5 50 5" Width="330" Height="200">
+                    <materialDesign:Card.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="#FFDADA02" Offset="1"/>
+                        </LinearGradientBrush>
+                    </materialDesign:Card.Background>
+
+                    <StackPanel>
+                        <TextBlock Margin="5" Height="90" Text="Doanh Thu So Với Tháng Trước:" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35" TextWrapping="WrapWithOverflow"></TextBlock>
+
+                        <Grid Margin="0 5 0 0" Height="90">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="60"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Foreground="#FF559EF5" Text="{Binding DoanhThuThangHienTai, StringFormat=C,ConverterCulture=nl-VN , UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30"></TextBlock>
+
+                            <Grid Grid.Column="1">
+                                <materialDesign:PackIcon Foreground="#FF559EF5" Visibility="{Binding ArrowUp}" HorizontalAlignment="Center" Width="70" Height="70" Kind="ArrowUpThick" />
+                                <materialDesign:PackIcon Foreground="#FF559EF5" Visibility="{Binding ArrowDown}" HorizontalAlignment="Center" Width="70" Height="70" Kind="ArrowDownThick" />
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card UniformCornerRadius="15" Margin="5" Width="330" Height="200">
+                    <materialDesign:Card.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="Red" Offset="1"/>
+                        </LinearGradientBrush>
+                    </materialDesign:Card.Background>
+
+                    <StackPanel>
+                        <TextBlock Margin="5" Height="90" Text="Nhân Viên Năng Động Nhất Tháng:" FontWeight="Bold" HorizontalAlignment="Center" FontSize="35" TextWrapping="WrapWithOverflow"></TextBlock>
+
+                        <Grid Margin="0 5 0 0" Height="90">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="220"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock FontWeight="Bold" Text="{Binding IDNV,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="35"></TextBlock>
+                                <TextBlock FontWeight="Bold" Text="{Binding HoTenNV,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="25"></TextBlock>
+                            </StackPanel>
+
+                            <materialDesign:PackIcon Grid.Column="1" HorizontalAlignment="Center" Width="70" Height="70" Kind="AccountStar" Foreground="White" />
+                        </Grid>
+                    </StackPanel>
+                </materialDesign:Card>
+            </WrapPanel>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:Card Background="#FFFBFBFB"  UniformCornerRadius="15" Margin="15">
+                    <StackPanel>
+                        <TextBlock Text="Số Lượng Loại Sản Phẩm Bán Ra Trong Tháng" Foreground="Black" HorizontalAlignment="Center" FontSize="27" FontWeight="Bold"></TextBlock>
+
+                        <lv:PieChart Margin="5" Height="350" Foreground="Black" Series="{Binding SeriesCollectionSPBanRa}" LegendLocation="Right" >
+                            <lv:PieChart.ChartLegend>
+                                <lv:DefaultLegend BulletSize="20"></lv:DefaultLegend>
+                            </lv:PieChart.ChartLegend>
+                            <lv:PieChart.DataTooltip>
+                                <lv:DefaultTooltip BulletSize="20"></lv:DefaultTooltip>
+                            </lv:PieChart.DataTooltip>
+                        </lv:PieChart>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card Background="#FFFBFBFB"  UniformCornerRadius="15" Grid.Column="1" Margin="15">
+                    <StackPanel>
+                        <TextBlock Text="Top 3 Sản Phẩm Bán Nhiều Nhất Trong Tháng" Foreground="Black" HorizontalAlignment="Center" FontSize="27" FontWeight="Bold"></TextBlock>
+
+                        <lv:PieChart Margin="5" Height="350" InnerRadius="100" Foreground="Black" Series="{Binding SeriesCollectionSPBanChay}" LegendLocation="Right" >
+                            <lv:PieChart.ChartLegend>
+                                <lv:DefaultLegend BulletSize="20"></lv:DefaultLegend>
+                            </lv:PieChart.ChartLegend>
+                            <lv:PieChart.DataTooltip>
+                                <lv:DefaultTooltip BulletSize="20"></lv:DefaultTooltip>
+                            </lv:PieChart.DataTooltip>
+                        </lv:PieChart>
+                    </StackPanel>
+                </materialDesign:Card>
+
+            </Grid>
+        </Grid>
+    </materialDesign:Card>
+</Window>
